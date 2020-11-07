@@ -1,0 +1,36 @@
+.container{
+  text-transform: capitalize;
+  text-align: center;
+  padding-top: 70px;
+}
+.title{
+  margin-bottom: 80px;
+}
+label{
+  font-weight: normal;
+  color: rgb(66, 66, 66);
+  padding: 10px;
+}
+label a{
+  text-decoration: none;
+  color: rgb(197, 95, 95);
+}
+.iden{
+  background-image: url('../../assets/images/spinner.gif');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  background-size: 45px;
+  padding-left: 50px;
+}
+.videoprev{
+  width: 150px;
+  height: 110px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: inline-block;
+  margin: 10px;
+}
+.btn-send{
+  background-color: rgb(231, 107, 107);
+}

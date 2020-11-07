@@ -3,4 +3,40 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgb(223, 223, 223)}
+body { margin: 0; font-family: Ubuntu, "Helvetica Neue", sans-serif;}
+
+input.tube-control{
+  padding: 20px;
+  outline: none;
+  border: none;
+  background-color: rgb(233, 233, 233);
+  color: rgb(153, 153, 153);
+  font-size: 17px;
+  border-radius: 10px;
+  width: 100%;
+  transition: 0.5s;
+  margin: 15px;
+}
+.error{
+  font-weight: bold;
+  color: rgb(182, 24, 24);
+  text-align: center;
+  padding: 25px;
+}
+.tube-button{
+  border: none;
+  outline: none;
+  padding: 20px;
+  width: 100%;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(218, 85, 85);
+  text-transform: capitalize;
+  font-weight: bold;
+  margin: 15px;
+  transition: 0.3s;
+}
+.tube-button:hover{
+  padding: 20px 23px;
+  margin: 15px 12px;
+}

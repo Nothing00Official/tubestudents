@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { CreatorComponent } from './creator/creator.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: AppComponent
+    path: 'invia-video',
+    component: CreatorComponent
   }
 ];
 
@@ -15,5 +16,6 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [
-  AppComponent
+  AppComponent,
+  CreatorComponent
 ]

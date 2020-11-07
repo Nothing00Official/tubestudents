@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { DragDropDirective } from './dragdrop.directive';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { UnloggedcontainerComponent } from './unloggedcontainer/unloggedcontainer.component';
+import { CreatorComponent } from './creator/creator.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -20,6 +22,8 @@ registerLocaleData(localeIt, 'it');
   declarations: [
     AppComponent,
     DragDropDirective,
+    UnloggedcontainerComponent,
+    CreatorComponent,
   ],
   imports: [
     MaterialModule,

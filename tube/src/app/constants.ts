@@ -19,3 +19,5 @@ export const VALID_MAIL_DOMAINS = [
   "icloud.com",
   "icloud.it"
 ]
+
+export const GOOGLE_KEY = "AIzaSyC0y6tef-nNgXjzHwE5464IQ9mw1dbgqnE";

@@ -1,0 +1,41 @@
+<div *ngIf="iden==null" [@slideInOut]>
+	<div class="container">
+		<h1 class="title">Offri i tuoi contenuti agli studenti!</h1>
+		<form class="row" [formGroup]="form">
+			<div class="col-12">
+				<div [@slideInOut] *ngIf="error" class="error" [innerHTML]="error"></div>
+			</div>
+			<div class="col-12">
+				<input (keyup)="onKeyChannel($event)" formControlName="iden" class="tube-control" [disabled]="spinning" [ngClass]="{'iden': spinning}" type="text" placeholder="Inserire l'id del canale youtube" />
+				<label *ngIf="form.controls['name'].value==null || form.controls['name'].value==''">L'id del canale youtube è possibile recuperarlo a <a target="_blank" href="https://www.youtube.com/account_advanced">questa pagina</a> e assomiglia al seguente codice: UC-yo6vdgcjG3oLklkAJrOGA</label>
+			</div>
+			<div class="col-12 col-md-6" [@slideInOut]
+				*ngIf="form.controls['name'].value!=null && form.controls['name'].value!=''">
+				<input formControlName="name" class="tube-control" type="text" placeholder="Inserire nome canale youtube" />
+	  	</div>
+				<div class="col-12 col-md-6" [@slideInOut]
+					*ngIf="form.controls['name'].value!=null && form.controls['name'].value!=''">
+					<input (keyup)="onKeyMail($event)" formControlName="mail" class="tube-control" type="email" placeholder="Inserire una mail di contatto" />
+	  	</div>
+					<div class="col-md-10 col-12" [@slideInOut]
+						*ngIf="form.controls['mail'].value!=null && form.controls['mail'].value!='' && videos.length<10">
+						<input [formControl]="videoControl" class="tube-control" type="text" placeholder="Inserire URL video/playlist" />
+						<label>Puoi inserire fino a 10 link ai tuoi video o playlist da sottoporre alla validazione. Se verrai approvato potrai aggiungerne altri in un secondo momento!</label>
+					</div>
+					<div class="col-md-2 col-12" [@slideInOut]
+						*ngIf="form.controls['mail'].value!=null && form.controls['mail'].value!='' && videos.length<10">
+						<button class="tube-button" [disabled]="videoControl.value==null || videoControl.value==''" (click)="loadVideo()">Aggiungi</button>
+					</div>
+					<div class="col-12" *ngIf="scanning">
+						<mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
+					</div>
+					<div class="col-12 videoContainer">
+						<div *ngFor="let v of videos" class="videoprev"
+							[style.backgroundImage]="getbackgroundUrl(v.imgUrl)"></div>
+					</div>
+					<div class="col-12" [@slideInOut] *ngIf="videos.length>0">
+						<button class="tube-button btn-send" (click)="send()">Invia contenuti</button>
+					</div>
+		</form>
+	</div>
+</div>

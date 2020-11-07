@@ -11,6 +11,13 @@ export class SessionManager {
 
   }
 
+  public check() {
+    return this.http.post(SERVER_API_URL, {
+      request: "check",
+      session: true
+    })
+  }
+
   public destroySession(): void {
     this.http.post(SERVER_API_URL, {
       request: "logout",

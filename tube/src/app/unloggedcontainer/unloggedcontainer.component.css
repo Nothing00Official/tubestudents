@@ -1,0 +1,48 @@
+header{
+  background-color: white;
+  text-transform: capitalize;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+}
+header a{
+  text-decoration: none;
+}
+a.logo{
+  font-size: 200%;
+  color: rgb(199, 37, 37);
+  display: inline-block;
+}
+header ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  float: right;
+}
+header ul li{
+  display: inline-block;
+  padding: 10px 30px;
+}
+header li a{
+  color: rgb(66, 66, 66);
+  font-size: 15px;
+  transition: 0.5s;
+}
+header li a:hover{
+  opacity: 0.7;
+}
+footer{
+  text-align: center;
+  padding: 50px;
+  font-weight: bold;
+  clear: both;
+  width: 100%;
+}
+@media screen and (max-width: 600px) {
+  header ul{
+    float: none;
+  }
+  header{
+    text-align: center;
+  }
+}
