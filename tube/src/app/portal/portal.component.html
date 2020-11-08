@@ -1,1 +1,25 @@
-<p>portal works!</p>
+<div *ngIf="iden!=null" [@slideInOut]>
+	<mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+	<div class="container text-center" *ngIf="user!=null">
+		<div class="not-active" *ngIf="user.active==null" [@slideInOut]>
+			<h1>Benvenuto {{user.username}}</h1>
+			<h3>Attiva il tuo account impostando la tua password personale</h3>
+			<mat-spinner mode="indeterminate" color="warn" *ngIf="loading" style="margin: auto"></mat-spinner>
+			<form class="row" [formGroup]="pswForm" [@slideInOut] *ngIf="!loading">
+				<div class="col-12" *ngIf="error" [@slideInOut]>
+					<div class="error" [innerHTML]="error"></div>
+				</div>
+				<div class="col-12">
+					<input type="password" formControlName="psw" class="tube-control" placeholder="Nuova Password">
+        </div>
+					<div class="col-12">
+						<input type="password" formControlName="rpsw" class="tube-control" placeholder="Conferma Password">
+        </div>
+						<div class="col-12" [@slideInOut] *ngIf="pswForm.valid">
+							<button (click)="sendPassword()" type="button" class="tube-button">Imposta Password</button>
+						</div>
+			</form>
+		</div>
+    <app-admin *ngIf="user.type=='A'"></app-admin>
+	</div>
+</div>

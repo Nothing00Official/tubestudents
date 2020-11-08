@@ -4,4 +4,7 @@ export class Video{
   title: string;
   imgUrl: string;
   url: string;
+  name: string;
+  iden: string;
+  categoryID: number;
 }

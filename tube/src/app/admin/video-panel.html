@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Visualizza video</h1>
+<div mat-dialog-content style="width: 100%">
+	<iframe width="560px" height="315px" [src]="url" frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen></iframe>
+</div>
+<div mat-dialog-actions>
+	<button mat-button color="secondary" (click)="onNoClick()">Chiudi</button>
+</div>

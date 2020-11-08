@@ -1,0 +1,90 @@
+<div class="alert alert-danger" [@slideInOut] *ngIf="error" [innerHTML]="error"></div>
+<mat-tab-group mat-align-tabs="center">
+	<mat-tab label="Canali">
+		<div style="overflow-x: auto">
+			<mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+			<div class="alert alert-info" *ngIf="channels.length==0">Non ci sono canali da approvare</div>
+			<table mat-table [dataSource]="dataSourceChannel" class="mat-elevation-z8" *ngIf="channels.length>0">
+
+				<ng-container matColumnDef="id">
+					<th mat-header-cell *matHeaderCellDef> Identificativo </th>
+					<td mat-cell *matCellDef="let element">
+						<button mat-button (click)="visitChannel(element.iden)"> {{element.iden}}</button></td>
+				</ng-container>
+
+				<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef> Nome </th>
+					<td mat-cell *matCellDef="let element"> {{element.name}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="mail">
+					<th mat-header-cell *matHeaderCellDef> Contatto </th>
+					<td mat-cell *matCellDef="let element"> {{element.mail}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="operation">
+					<th mat-header-cell *matHeaderCellDef> Approva </th>
+					<td mat-cell *matCellDef="let element">
+						<button [disabled]="loading" mat-button color="primary" (click)="approveChannel(element)"> Abilita Account</button>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="delete">
+					<th mat-header-cell *matHeaderCellDef> Respingi </th>
+					<td mat-cell *matCellDef="let element">
+						<button [disabled]="loading" mat-button color="warn" (click)="deleteChannel(element)"> Elimina Account</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumnsChannel"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumnsChannel;">
+				</tr>
+			</table>
+			<mat-paginator #paginator1 [pageSizeOptions]="[50,100,150]" showFirstLastButtons></mat-paginator>
+		</div>
+	</mat-tab>
+	<mat-tab label="Video & Playlist">
+		<div style="overflow-x: auto">
+			<mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+			<div class="alert alert-info" *ngIf="videos.length==0">Non ci sono video da approvare</div>
+			<table mat-table [dataSource]="dataSourceVideo" class="mat-elevation-z8" *ngIf="videos.length>0">
+
+				<ng-container matColumnDef="id">
+					<th mat-header-cell *matHeaderCellDef> #id </th>
+					<td mat-cell *matCellDef="let element">
+						<b>#{{element.id}}</b></td>
+				</ng-container>
+
+				<ng-container matColumnDef="iden">
+					<th mat-header-cell *matHeaderCellDef> URL </th>
+					<td mat-cell *matCellDef="let element"><button mat-button (click)="viewVideo(element)"> {{element.url}}</button></td>
+				</ng-container>
+
+				<ng-container matColumnDef="channel">
+					<th mat-header-cell *matHeaderCellDef> Canale </th>
+					<td mat-cell *matCellDef="let element"><button mat-button (click)="visitChannel(element)"> {{element.name}}</button></td>
+				</ng-container>
+
+				<ng-container matColumnDef="operation">
+					<th mat-header-cell *matHeaderCellDef> Approva </th>
+					<td mat-cell *matCellDef="let element">
+						<button [disabled]="loading" mat-button color="primary" (click)="confirmVideo(element)"> Pubblica Video</button>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="delete">
+					<th mat-header-cell *matHeaderCellDef> Respingi </th>
+					<td mat-cell *matCellDef="let element">
+						<button [disabled]="loading" mat-button color="warn" (click)="deleteVideo(element)"> Elimina Video</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumnsVideo"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumnsVideo;">
+				</tr>
+			</table>
+			<mat-paginator #paginator2 [pageSizeOptions]="[50,100,150]" showFirstLastButtons></mat-paginator>
+		</div>
+	</mat-tab>
+	<mat-tab label="Utenti">Content 3</mat-tab>
+</mat-tab-group>
