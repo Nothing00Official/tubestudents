@@ -1,0 +1,12 @@
+.container{
+  text-transform: capitalize;
+  text-align: center;
+  padding-top: 70px;
+}
+.load{
+  background-image: url('../../assets/images/spinner.gif');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  background-size: 45px;
+  padding-left: 50px;
+}

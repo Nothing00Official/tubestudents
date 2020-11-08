@@ -1,0 +1,22 @@
+<div *ngIf="iden==null" [@slideInOut]>
+	<div class="container">
+		<h1>Accedi al tuo account</h1>
+    <mat-spinner mode="indeterminate" color="warn" *ngIf="loading" style="margin: auto"></mat-spinner>
+		<form class="row" [formGroup]="form" [@slideInOut] *ngIf="!loading">
+			<div class="col-12" *ngIf="error" [@slideInOut]>
+				<div class="error" [innerHTML]="error"></div>
+			</div>
+			<div class="col-12" [ngClass]="{'col-md-6' : psw}" [@slideInOut]>
+				<input type="text" (keyup)="onKeyUser($event)" [disabled]="spinning" [ngClass]="{'load': spinning}" formControlName="username" placeholder="username" class="tube-control" />
+     </div>
+				<div class="col-12 col-md-6" [@slideInOut] *ngIf="psw">
+					<input #loginPSW type="password" formControlName="psw" placeholder="password" class="tube-control" />
+     </div>
+					<div class="col-12" [@slideInOut] *ngIf="form.valid">
+						<button (click)="login()" type="button" class="tube-button">Accedi</button>
+					</div>
+					<div class="col-12">Se non ricordi le tue credenziali di accesso contatta l'assistenza tramite
+						l'apposito contatto!</div>
+		</form>
+	</div>
+</div>

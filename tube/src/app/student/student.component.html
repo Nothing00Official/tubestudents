@@ -12,8 +12,14 @@
 				<input type="email" [formControl]="mail" class="tube-control" placeholder="Inserisci l'indirizzo email"/>
       </div>
 				<div class="col-md-2 col-12">
-					<button [disabled]="mail.value==null || mail.value==''" (click)="checkExists()" class="tube-button" type="button">Crea Account</button>
+					<button [disabled]="mail.value==null || mail.value=='' || loading" (click)="checkExists()" class="tube-button" type="button">Crea Account</button>
 				</div>
+			</div>
+      <mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+			<div class="success" id="success" *ngIf="done" [@slideInOut]>
+				<h2>Step 3: Attendi le credenziali di accesso inviate a {{mail.value}} e accedi alla piattaforma!</h2>
+				<p>Ricorda di controllare se la mail si trova nello spam. Le credenziali possono impiegare fino a 20
+					minuti prima di essere ricevute!</p>
 			</div>
 		</div>
 	</div>

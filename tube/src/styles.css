@@ -4,7 +4,9 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Ubuntu, "Helvetica Neue", sans-serif;}
-
+html {
+  scroll-behavior: smooth;
+}
 input.tube-control{
   padding: 20px;
   outline: none;

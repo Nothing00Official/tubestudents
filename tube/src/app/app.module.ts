@@ -16,6 +16,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UnloggedcontainerComponent } from './unloggedcontainer/unloggedcontainer.component';
 import { CreatorComponent } from './creator/creator.component';
 import { StudentComponent } from './student/student.component';
+import { SupportComponent } from './support/support.component';
+import { LoginComponent } from './login/login.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -26,6 +28,8 @@ registerLocaleData(localeIt, 'it');
     UnloggedcontainerComponent,
     CreatorComponent,
     StudentComponent,
+    SupportComponent,
+    LoginComponent,
   ],
   imports: [
     MaterialModule,

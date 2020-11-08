@@ -1,0 +1,23 @@
+.container{
+  text-transform: capitalize;
+  text-align: center;
+  padding-top: 70px;
+}
+td{
+  padding: 20px;
+}
+td a{
+  text-decoration: none;
+  color: rgb(248, 128, 128);
+  text-transform: lowercase;
+}
+table{
+  margin: auto;
+  margin-top: 30px;
+  text-align: center;
+}
+table h2{
+  color: rgb(170, 170, 170);
+  font-size: 25px;
+  width: 250px;
+}

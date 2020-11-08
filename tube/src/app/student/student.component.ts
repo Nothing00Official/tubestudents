@@ -17,6 +17,7 @@ export class StudentComponent implements OnInit {
   iden: string;
   error: string;
   loading: boolean = false;
+  done: boolean = false;
 
   mail = new FormControl("");
 
@@ -71,7 +72,12 @@ export class StudentComponent implements OnInit {
       if (res[0] == "KO") {
         this.error = res[1];
       } else {
-        //..
+        this.error = null;
+        this.done = true;
+        this.mail.setValue("");
+        setTimeout(() => {
+          document.getElementById("success").scrollIntoView();
+        }, 500);
       }
       this.loading = false;
     });

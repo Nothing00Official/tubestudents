@@ -18,6 +18,15 @@ export class SessionManager {
     })
   }
 
+  public login(user,psw) {
+    return this.http.post(SERVER_API_URL, {
+      request: "login",
+      session: true,
+      username: user,
+      password: psw
+    })
+  }
+
   public destroySession(): void {
     this.http.post(SERVER_API_URL, {
       request: "logout",
