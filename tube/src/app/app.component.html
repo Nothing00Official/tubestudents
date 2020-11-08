@@ -1,1 +1,9 @@
 <app-unloggedcontainer *ngIf="iden==null"></app-unloggedcontainer>
+<app-loggedcontainer *ngIf="iden!=null"></app-loggedcontainer>
+<div class="content">
+	<router-outlet></router-outlet>
+</div>
+<footer>
+	Copyright &copy; 2020 TubeStudents - Powered by <a target="_blank" href="https://www.unidea.org/it">UNIDEA No
+		Profit</a>
+</footer>

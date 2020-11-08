@@ -5,8 +5,10 @@ import { CreatorComponent } from './creator/creator.component';
 import { StudentComponent } from './student/student.component';
 import { SupportComponent } from './support/support.component';
 import { LoginComponent } from './login/login.component';
+import { PortalComponent } from './portal/portal.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'invia-video',
     component: CreatorComponent
@@ -22,6 +24,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'portale',
+    component: PortalComponent
   }
 ];
 
@@ -35,5 +41,6 @@ export const routingComponents = [
   CreatorComponent,
   StudentComponent,
   SupportComponent,
-  LoginComponent
+  LoginComponent,
+  PortalComponent
 ]

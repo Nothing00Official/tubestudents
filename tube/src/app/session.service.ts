@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { SERVER_API_URL } from './urls'
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionManager {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public router: Router) {
 
   }
 
@@ -36,7 +37,7 @@ export class SessionManager {
         alert(res[1]);
       } else {
         localStorage.removeItem('iden');
-        window.location.replace("/");
+        this.router.navigate(['/login']);
       }
     });
   }

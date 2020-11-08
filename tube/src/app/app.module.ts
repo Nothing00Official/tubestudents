@@ -18,6 +18,8 @@ import { CreatorComponent } from './creator/creator.component';
 import { StudentComponent } from './student/student.component';
 import { SupportComponent } from './support/support.component';
 import { LoginComponent } from './login/login.component';
+import { LoggedcontainerComponent } from './loggedcontainer/loggedcontainer.component';
+import { PortalComponent } from './portal/portal.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -30,6 +32,8 @@ registerLocaleData(localeIt, 'it');
     StudentComponent,
     SupportComponent,
     LoginComponent,
+    LoggedcontainerComponent,
+    PortalComponent,
   ],
   imports: [
     MaterialModule,

@@ -1,0 +1,31 @@
+header{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.801);
+}
+a.logo img{
+  width: 200px;
+  margin: 15px;
+  display: inline-block;
+  transition: 0.3s;
+}
+a.logo:hover img{
+  width: 220px;
+  margin: 10px;
+}
+.tube-button{
+  border-radius: 200px;
+  width: 100px;
+  padding: 10px;
+  float: right;
+}
+
+@media screen and (max-width: 600px) {
+  header{
+    text-align: center;
+  }
+  .tube-button{
+   float: none;
+  }
+}

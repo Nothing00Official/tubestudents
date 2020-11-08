@@ -1,5 +1,5 @@
 import { Component, HostListener, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Location } from "@angular/common";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
@@ -19,9 +19,20 @@ export class AppComponent {
 
   loading: boolean = false;
 
-  constructor(public router: Router, public loc: Location,public http: HttpClient) {
+  constructor(public router: Router, public loc: Location, public http: HttpClient) {
     this.iden = localStorage.getItem('iden');
     this.onLoad();
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        if (loc.path().startsWith("/portale")) {
+          if (localStorage.getItem('iden') != null) {
+            this.iden = localStorage.getItem('iden');
+          }
+        } else {
+          this.iden = localStorage.getItem('iden');
+        }
+      }
+    })
   }
 
   onLoad() {
