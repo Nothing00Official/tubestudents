@@ -1,0 +1,31 @@
+.container{
+  text-transform: capitalize;
+  text-align: center;
+  padding-top: 70px;
+}
+h1{
+  margin: 60px auto;
+}
+h2{
+  color: rgb(161, 161, 161);
+  margin: 30px auto;
+}
+.tube-button.action{
+  width: 250px;
+  margin: auto;
+  margin-bottom: 60px;
+  position: relative;
+  transition: 0.3s;
+  top: 0;
+}
+.tube-button.action:hover{
+  top: 2px;
+  border-radius: 50px;
+}
+
+.tube-button:hover{
+  border-radius: 50px;
+  background-color: transparent;
+  color: rgb(223, 70, 70);
+  border: 1px solid rgb(223, 70, 70);
+}

@@ -23,6 +23,8 @@ export class CreatorComponent implements OnInit {
   error: string;
   videos: Video[] = new Array();
   scanning: boolean = false;
+  message: string;
+  done: boolean = false;
 
   playlists: Object[] = new Array();
 
@@ -46,12 +48,17 @@ export class CreatorComponent implements OnInit {
     })
   }
 
+  delVideo(video) {
+    this.videos.splice(this.videos.indexOf(video), 1);
+  }
+
   loadChannel(id) {
     this.http.get("https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=" + id + "&maxResults=1&key=" + GOOGLE_KEY).subscribe(res => {
       if (res["items"] != null) {
         let name = res["items"][0]["snippet"]["localized"]["title"];
         this.form.controls['name'].setValue(name);
         this.error = null;
+        this.checkExistsMail(id, 'iden');
         this.loadPlaylists(id);
       } else {
         this.error = "Nessun canale trovato con questo id";
@@ -61,7 +68,7 @@ export class CreatorComponent implements OnInit {
   }
 
   loadPlaylists(id) {
-    this.http.get("https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&channelId=" + id + "&key=" + GOOGLE_KEY).subscribe(res => {
+    this.http.get("https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&maxResults=1000&channelId=" + id + "&key=" + GOOGLE_KEY).subscribe(res => {
       if (res["items"] != null) {
         res["items"].forEach(el => {
           this.playlists.push({ id: el["id"], img: el["snippet"]["thumbnails"]["default"]["url"] })
@@ -112,6 +119,8 @@ export class CreatorComponent implements OnInit {
       this.scanning = false;
       return;
     }
+    let sp = id.split("&");
+    id = sp[0];
     let res = this.videos.filter(el => {
       return el.url == id;
     });
@@ -169,20 +178,71 @@ export class CreatorComponent implements OnInit {
         if (!correct) {
           this.form.controls['mail'].setErrors({ 'incorrect': true });
         } else {
-          this.checkExistsMail(mail);
+          this.checkExistsMail(mail, 'mail');
         }
       }
     }, 500);
   }
 
-  checkExistsMail(mail) {
+  checkExistsMail(mail, type) {
     this.http.get(SERVER_API_URL + "?request=CHANNEL_EXISTS&mail=" + mail).subscribe(res => {
       if (res["result"] == true) {
-        this.error = "La mail inserita è già stata registrata!";
-        this.form.controls['mail'].setErrors({ 'incorrect': true });
+        if (type == "mail") {
+          this.error = "La mail inserita è già stata registrata!";
+        } else {
+          this.error = "Questo canale è già stato registrato!";
+        }
+        this.form.controls[type].setErrors({ 'incorrect': true });
       } else {
-        this.form.controls['mail'].setErrors(null);
+        this.form.controls[type].setErrors(null);
         this.error = null;
+      }
+    });
+  }
+
+  send() {
+    if (this.form.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.message = "Salvataggio informazioni canale in corso...";
+    this.http.post(SERVER_API_URL, {
+      request: "ADDCHANNEL",
+      iden: this.form.controls['iden'].value,
+      name: this.form.controls['name'].value,
+      mail: this.form.controls['mail'].value,
+    }).subscribe(res => {
+      if (res[0] == "KO") {
+        this.loading = false;
+        this.error = res[1];
+      } else {
+        this.error = "";
+        this.sendVideo(0, res[1]);
+      }
+    });
+  }
+
+  sendVideo(index, id) {
+    if (index == this.videos.length) {
+      if (this.error == "") {
+        this.error = null;
+      }
+      this.done = true;
+      this.loading = false;
+      return;
+    }
+    this.message = "Salvataggio video " + this.videos[index].url + " in corso...";
+    this.http.post(SERVER_API_URL, {
+      request: "ADDVIDEO",
+      url: this.videos[index].url,
+      author: id,
+      imgUrl: this.videos[index].imgUrl
+    }).subscribe(res => {
+      if (res[0] == "KO") {
+        this.error += "<br>" + res[1];
+      } else {
+        index++;
+        this.sendVideo(index, id);
       }
     });
   }

@@ -2,16 +2,25 @@ header{
   background-color: white;
   text-transform: capitalize;
   padding: 20px;
-  position: sticky;
+  position: fixed;
   top: 0;
+  width: 100%;
+}
+.content{
+  margin-top: 10%;
 }
 header a{
   text-decoration: none;
 }
+.logo img{
+  width: 200px;
+}
 a.logo{
-  font-size: 200%;
   color: rgb(199, 37, 37);
   display: inline-block;
+}
+a.logo:hover{
+  opacity: 0.7;
 }
 header ul{
   margin: 0;
@@ -36,7 +45,10 @@ footer{
   padding: 50px;
   font-weight: bold;
   clear: both;
-  width: 100%;
+}
+#header{
+  transition: 0.4s;
+  z-index: 9999;
 }
 @media screen and (max-width: 600px) {
   header ul{
@@ -44,5 +56,8 @@ footer{
   }
   header{
     text-align: center;
+  }
+  .content{
+    margin-top: 20%;
   }
 }

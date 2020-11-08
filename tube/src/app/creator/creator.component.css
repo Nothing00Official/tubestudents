@@ -31,6 +31,32 @@ label a{
   display: inline-block;
   margin: 10px;
 }
+.cover{
+  background-color: rgba(255, 255, 255, 0.37);
+  width: 150px;
+  height: 110px;
+  text-align: center;
+  visibility: hidden;
+  transition: 0.5s;
+}
+.cover button{
+  border: none;
+  outline: none;
+  font-size: 200%;
+  color: red;
+  margin: 15px;
+  background-color: transparent;
+}
+
+.videoprev:hover .cover{
+  visibility: visible;
+}
+
 .btn-send{
   background-color: rgb(231, 107, 107);
+}
+.success{
+  background-color: rgb(53, 175, 53);
+  color: white;
+  padding: 25px;
 }

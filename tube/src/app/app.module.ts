@@ -15,6 +15,7 @@ import { DragDropDirective } from './dragdrop.directive';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UnloggedcontainerComponent } from './unloggedcontainer/unloggedcontainer.component';
 import { CreatorComponent } from './creator/creator.component';
+import { StudentComponent } from './student/student.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -24,6 +25,7 @@ registerLocaleData(localeIt, 'it');
     DragDropDirective,
     UnloggedcontainerComponent,
     CreatorComponent,
+    StudentComponent,
   ],
   imports: [
     MaterialModule,

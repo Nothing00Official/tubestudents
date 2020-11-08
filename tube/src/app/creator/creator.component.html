@@ -1,7 +1,17 @@
 <div *ngIf="iden==null" [@slideInOut]>
 	<div class="container">
 		<h1 class="title">Offri i tuoi contenuti agli studenti!</h1>
-		<form class="row" [formGroup]="form">
+		<div class="processing" [@slideInOut] *ngIf="loading">
+			<mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
+			<h3>{{message}}</h3>
+			<p class="error" [innerHTML]="error"></p>
+		</div>
+		<div class="success" [@slideInOut] *ngIf="done">
+			I tuoi contenuti sono stati salvati correttamente e sono in attesa di verifica. Se il tuo canale verrà
+			verificato e i tuoi contenuti saranno considerati idonei alle piattaforma, riceverai una mail all'indirizzo
+			indicato per attivare il tuo account e aggiungere altri video se lo desideri!
+		</div>
+		<form class="row" [formGroup]="form" *ngIf="!loading && !done" [@slideInOut]>
 			<div class="col-12">
 				<div [@slideInOut] *ngIf="error" class="error" [innerHTML]="error"></div>
 			</div>
@@ -31,10 +41,14 @@
 					</div>
 					<div class="col-12 videoContainer">
 						<div *ngFor="let v of videos" class="videoprev"
-							[style.backgroundImage]="getbackgroundUrl(v.imgUrl)"></div>
+							[style.backgroundImage]="getbackgroundUrl(v.imgUrl)">
+							<div class="cover">
+								<button (click)="delVideo(v)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+							</div>
+						</div>
 					</div>
-					<div class="col-12" [@slideInOut] *ngIf="videos.length>0">
-						<button class="tube-button btn-send" (click)="send()">Invia contenuti</button>
+					<div class="col-12" [@slideInOut] *ngIf="videos.length>0 && form.valid">
+						<button type="button" class="tube-button btn-send" (click)="send()">Invia contenuti</button>
 					</div>
 		</form>
 	</div>

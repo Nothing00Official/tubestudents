@@ -1,0 +1,19 @@
+<div *ngIf="iden==null" [@slideInOut]>
+	<div class="container">
+		<h1>Crea il tuo account studente!</h1>
+		<h2>Step 1: Registrati alla piattaforma UNIDEA Students, ti basteranno 5 minuti!</h2>
+		<button (click)="goToRegister()" class="tube-button action" type="button">Registrati</button>
+		<h2>Step 2: Inserisci l'indirizzo mail registrato ad UNIDEA Students per attivare il tuo account!</h2>
+		<div class="row">
+			<div class="col-12" *ngIf="error" [@slideInOut]>
+				<div class="error" [innerHTML]="error"></div>
+			</div>
+			<div class="col-md-10 col-12">
+				<input type="email" [formControl]="mail" class="tube-control" placeholder="Inserisci l'indirizzo email"/>
+      </div>
+				<div class="col-md-2 col-12">
+					<button [disabled]="mail.value==null || mail.value==''" (click)="checkExists()" class="tube-button" type="button">Crea Account</button>
+				</div>
+			</div>
+		</div>
+	</div>
