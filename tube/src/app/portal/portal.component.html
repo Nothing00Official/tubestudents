@@ -20,6 +20,6 @@
 						</div>
 			</form>
 		</div>
-    <app-admin *ngIf="user.type=='A'"></app-admin>
+    <app-admin *ngIf="user.type=='A' && user.active==1" [@slideInOut]></app-admin>
 	</div>
 </div>

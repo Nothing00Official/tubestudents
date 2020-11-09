@@ -10,6 +10,9 @@ import { Video } from '../models/video.model';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Category } from '../models/category.model';
+import { User } from '../models/user.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MAIL_PATTERN } from '../constants';
 
 @Component({
   selector: 'app-admin',
@@ -23,19 +26,35 @@ export class AdminComponent implements OnInit {
   channels: Channel[] = new Array();
   videos: Video[] = new Array();
   categories: Category[] = new Array();
+  users: User[] = new Array();
+  filteredUser: User[] = new Array();
   displayedColumnsChannel: string[] = ['id', 'name', 'mail', 'operation', 'delete'];
   displayedColumnsVideo: string[] = ['id', 'iden', 'channel', 'operation', 'delete'];
+  displayedColumnsUser: string[] = ['id', 'username', 'type', 'recover', 'ban'];
   dataSourceChannel: MatTableDataSource<Channel>;
   dataSourceVideo: MatTableDataSource<Video>;
+  dataSourceUser: MatTableDataSource<User>;
   loading: boolean = false;
   error: string;
+  success: string;
 
   @ViewChild('paginator1', { static: true }) paginator1: MatPaginator;
   @ViewChild('paginator2', { static: true }) paginator2: MatPaginator;
+  @ViewChild('paginator3', { static: true }) paginator3: MatPaginator;
 
   constructor(public http: HttpClient, public dialog: MatDialog) {
     this.iden = localStorage.getItem("iden");
     this.loadCategory();
+  }
+
+  search(value) {
+    if (value == "") {
+      this.reloadDataSourceUser(this.users);
+    }
+    this.filteredUser = this.users.filter(el => {
+      return el.username.toLowerCase().includes(value.toLowerCase());
+    });
+    this.reloadDataSourceUser(this.filteredUser);
   }
 
   reloadDataSourceChannel(channels: Channel[]): void {
@@ -46,6 +65,11 @@ export class AdminComponent implements OnInit {
   reloadDataSourceVideo(videos: Video[]): void {
     this.dataSourceVideo = new MatTableDataSource<Video>(videos);
     this.dataSourceVideo.paginator = this.paginator2;
+  }
+
+  reloadDataSourceUser(users: User[]): void {
+    this.dataSourceUser = new MatTableDataSource<User>(users);
+    this.dataSourceUser.paginator = this.paginator3;
   }
 
   loadCategory(): void {
@@ -81,6 +105,57 @@ export class AdminComponent implements OnInit {
     }).subscribe(res => {
       this.videos = res;
       this.reloadDataSourceVideo(this.videos);
+      this.loading = false;
+    });
+  }
+
+  sendRecover(user: User): void {
+    this.loading = true;
+    this.http.post(SERVER_API_URL, {
+      request: "RECOVER",
+      session: true,
+      id: user.id
+    }).subscribe(res => {
+      if (res[0] == "KO") {
+        this.error = res[1];
+      } else {
+        this.success = "Recupero inviato!";
+        setTimeout(() => {
+          this.success = null;
+        }, 4000)
+      }
+      this.loading = false;
+    });
+  }
+
+  ban(user: User, banned: boolean) {
+    this.loading = true;
+    this.http.post(SERVER_API_URL, {
+      request: "BANUSER",
+      session: true,
+      id: user.id,
+      banned: banned ? 0 : 1
+    }).subscribe(res => {
+      if (res[0] == "KO") {
+        this.error = res[1];
+        this.loading = false;
+      } else {
+        this.loadUsers();
+      }
+    });
+  }
+
+  onTabChanged(event) {
+    if (event.index == 2) {
+      this.loadUsers();
+    }
+  }
+
+  loadUsers(): void {
+    this.loading = true;
+    this.http.get<User[]>(SERVER_API_URL + "?request=USERS").subscribe(res => {
+      this.users = res;
+      this.reloadDataSourceUser(this.users);
       this.loading = false;
     });
   }
@@ -158,6 +233,24 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  addGuest(user: User) {
+    this.loading = true;
+    this.http.post(SERVER_API_URL, {
+      request: "ADDGUEST",
+      session: true,
+      mail: user.username,
+      time: user.expireDate
+    }).subscribe(res => {
+      if (res[0] == "KO") {
+        this.error = res[1];
+      } else {
+        this.loading = false;
+        this.loadUsers();
+      }
+
+    });
+  }
+
   visitChannel(iden) {
     window.open("https://www.youtube.com/channel/" + iden, "_blank")
   }
@@ -185,6 +278,80 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  openGuest(): void {
+    const dialogRef = this.dialog.open(GuestUser, {
+      width: '300px',
+      data: null
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        this.addGuest(result);
+      }
+    });
+  }
+
+}
+@Component({
+  selector: 'guest-dialog',
+  templateUrl: 'guest-dialog.html',
+  animations: fadeOut
+})
+export class GuestUser {
+
+  user: User = new User();
+  form: FormGroup;
+  error: string;
+
+  constructor(
+    public dialogRef: MatDialogRef<GuestUser>,
+    @Inject(MAT_DIALOG_DATA) public data: Object, fb: FormBuilder, public http: HttpClient) {
+    this.form = fb.group({
+      mail: ['', Validators.required],
+      time: ['', Validators.required]
+    })
+  }
+
+  checkMail() {
+    let mail = this.form.controls['mail'].value;
+    if (mail.search(MAIL_PATTERN) == -1) {
+      this.form.controls['mail'].setErrors({ incorrect: true });
+      this.error = "Inserire una mail valida!";
+    } else {
+      this.form.controls['mail'].setErrors(null);
+      this.error = null;
+      this.checkUser(mail);
+    }
+  }
+
+  checkDate() {
+    let time = this.form.controls['time'].value;
+    let date = new Date(time);
+    let now = new Date();
+    if (date <= now) {
+      this.form.controls['time'].setErrors({ incorrect: true });
+      this.error = "La data di scadenza deve essere di almeno 1 giorno nel futuro";
+    } else {
+      this.form.controls['time'].setErrors(null);
+      this.error = null;
+    }
+  }
+
+  checkUser(user) {
+    this.http.get(SERVER_API_URL + "?request=CORRECT_USER&user=" + user).subscribe(res => {
+      if (res["result"] == true) {
+        this.error = "Questo username è già registrato!";
+        this.form.controls['mail'].setErrors({ incorrect: true });
+      } else {
+        this.error = null;
+        this.form.controls['mail'].setErrors(null);
+      }
+    });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
 @Component({
   selector: 'video-dialog',

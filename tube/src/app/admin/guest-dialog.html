@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Aggiungi utente temporaneo</h1>
+<div mat-dialog-content style="width: 100%">
+	<div class="alert alert-danger" [@slideInOut] *ngIf="error" [innerHTML]="error"></div>
+	<form [formGroup]="form">
+		<mat-form-field appearance="fill" style="width: 100%">
+			<mat-label>Inserire email</mat-label>
+			<input matInput type="email" (input)="checkMail()" [(ngModel)]="user.username" formControlName="mail">
+	</mat-form-field>
+			<mat-form-field style="width: 100%;" appearance="fill">
+				<mat-label>Data Scadenza</mat-label>
+				<input (dateChange)="checkDate()" matInput [(ngModel)]="user.expireDate" [matDatepicker]="picker" formControlName="time" required>
+				<mat-datepicker-toggle matSuffix [for]="picker">
+				</mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+	</form>
+</div>
+<div mat-dialog-actions>
+	<button mat-button color="secondary" (click)="onNoClick()">Annulla</button>
+	<button mat-button [mat-dialog-close]="user" color="primary" cdkFocusInitial [disabled]="form.invalid">Crea Account</button>
+</div>

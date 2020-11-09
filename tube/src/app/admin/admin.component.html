@@ -1,5 +1,16 @@
 <div class="alert alert-danger" [@slideInOut] *ngIf="error" [innerHTML]="error"></div>
-<mat-tab-group mat-align-tabs="center">
+<div class="alert alert-success" [@slideInOut] *ngIf="success" [innerHTML]="success"></div>
+<div class="counter row">
+	<div class="col-6">
+		<h1>{{channels.length}}</h1>
+		<p>Canali da approvare</p>
+	</div>
+	<div class="col-6">
+		<h1>{{videos.length}}</h1>
+		<p>Video da approvare</p>
+	</div>
+</div>
+<mat-tab-group mat-align-tabs="center" (selectedTabChange)="onTabChanged($event);">
 	<mat-tab label="Canali">
 		<div style="overflow-x: auto">
 			<mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
@@ -57,12 +68,14 @@
 
 				<ng-container matColumnDef="iden">
 					<th mat-header-cell *matHeaderCellDef> URL </th>
-					<td mat-cell *matCellDef="let element"><button mat-button (click)="viewVideo(element)"> {{element.url}}</button></td>
+					<td mat-cell *matCellDef="let element">
+						<button mat-button (click)="viewVideo(element)"> {{element.url}}</button></td>
 				</ng-container>
 
 				<ng-container matColumnDef="channel">
 					<th mat-header-cell *matHeaderCellDef> Canale </th>
-					<td mat-cell *matCellDef="let element"><button mat-button (click)="visitChannel(element)"> {{element.name}}</button></td>
+					<td mat-cell *matCellDef="let element">
+						<button mat-button (click)="visitChannel(element)"> {{element.name}}</button></td>
 				</ng-container>
 
 				<ng-container matColumnDef="operation">
@@ -86,5 +99,60 @@
 			<mat-paginator #paginator2 [pageSizeOptions]="[50,100,150]" showFirstLastButtons></mat-paginator>
 		</div>
 	</mat-tab>
-	<mat-tab label="Utenti">Content 3</mat-tab>
+	<mat-tab label="Utenti">
+		<div class="row w-100">
+			<div class="col-md-10 col-12">
+				<mat-form-field appearance="fill" style="width: 100%">
+					<mat-label>Cerca Utente</mat-label>
+					<input matInput type="text" #searchInput (input)="search(searchInput.value)" placeholder="Inserisci Username">
+	</mat-form-field>
+			</div>
+			<div class="col-md-2 col-12">
+       <button (click)="openGuest()" mat-raised-button style="margin: 10px" color="primary">Crea Utente Ospite</button>
+      </div>
+		</div>
+		<div style="overflow-x: auto">
+			<mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+			<div class="alert alert-info" *ngIf="users.length==0">Non ci sono utenti registrati attualmente</div>
+			<table mat-table [dataSource]="dataSourceUser" class="mat-elevation-z8" *ngIf="users.length>0">
+
+				<ng-container matColumnDef="id">
+					<th mat-header-cell *matHeaderCellDef> Id </th>
+					<td mat-cell *matCellDef="let element">
+						#{{element.id}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="username">
+					<th mat-header-cell *matHeaderCellDef> Username </th>
+					<td mat-cell *matCellDef="let element"> {{element.username}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="type">
+					<th mat-header-cell *matHeaderCellDef> Tipologia </th>
+					<td mat-cell *matCellDef="let element"> {{element.type}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="recover">
+					<th mat-header-cell *matHeaderCellDef> Ripristina </th>
+					<td mat-cell *matCellDef="let element">
+						<button [disabled]="loading" mat-button color="primary" (click)="sendRecover(element)"> Invia Recupero</button>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="ban">
+					<th mat-header-cell *matHeaderCellDef> Sospendi </th>
+					<td mat-cell *matCellDef="let element">
+						<button [disabled]="loading" mat-button color="warn" (click)="ban(element, true)" *ngIf="element.active==1"> Sospendi Account</button>
+						<button [disabled]="loading" mat-button color="warn" (click)="ban(element, false)" *ngIf="element.active==0"> Sblocca Account</button>
+						<span style="color: gold" *ngIf="element.active==null">Account in attivazione</span>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumnsUser"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumnsUser;">
+				</tr>
+			</table>
+			<mat-paginator #paginator3 [pageSizeOptions]="[50,100,150]" showFirstLastButtons></mat-paginator>
+		</div>
+	</mat-tab>
 </mat-tab-group>
