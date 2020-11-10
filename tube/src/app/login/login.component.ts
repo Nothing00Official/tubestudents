@@ -74,6 +74,7 @@ export class LoginComponent implements OnInit {
     }
     this.loading = true;
     this.session.login(this.form.controls['username'].value, this.form.controls['psw'].value).subscribe(res => {
+      this.clearTimer();
       if (res[0] == "KO") {
         this.error = res[1];
       } else {
@@ -81,6 +82,15 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/portale']);
       }
       this.loading = false;
+    });
+  }
+
+  clearTimer() {
+    this.loading = true;
+    this.http.post(SERVER_API_URL, {
+      request: "CLEARTIMER"
+    }).subscribe(res => {
+      console.log(res)
     });
   }
 

@@ -20,7 +20,7 @@ import { SupportComponent } from './support/support.component';
 import { LoginComponent } from './login/login.component';
 import { LoggedcontainerComponent } from './loggedcontainer/loggedcontainer.component';
 import { PortalComponent } from './portal/portal.component';
-import { AdminComponent, videoDialog, videoApproved, GuestUser } from './admin/admin.component';
+import { AdminComponent, videoDialog, videoApproved, GuestUser, EditCategory } from './admin/admin.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -38,7 +38,8 @@ registerLocaleData(localeIt, 'it');
     AdminComponent,
     videoDialog,
     videoApproved,
-    GuestUser
+    GuestUser,
+    EditCategory
   ],
   imports: [
     MaterialModule,
@@ -50,7 +51,7 @@ registerLocaleData(localeIt, 'it');
     NgxPayPalModule,
     ReactiveFormsModule
   ],
-  entryComponents: [videoDialog, videoApproved, GuestUser],
+  entryComponents: [videoDialog, videoApproved, GuestUser, EditCategory],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'it-IT' }, { provide: LOCALE_ID, useValue: 'it' }, { provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' }],
   bootstrap: [AppComponent]
 })

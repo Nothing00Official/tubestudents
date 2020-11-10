@@ -31,9 +31,11 @@ export class AdminComponent implements OnInit {
   displayedColumnsChannel: string[] = ['id', 'name', 'mail', 'operation', 'delete'];
   displayedColumnsVideo: string[] = ['id', 'iden', 'channel', 'operation', 'delete'];
   displayedColumnsUser: string[] = ['id', 'username', 'type', 'recover', 'ban'];
+  displayedColumnsCat: string[] = ['id', 'name', 'url', 'edit'];
   dataSourceChannel: MatTableDataSource<Channel>;
   dataSourceVideo: MatTableDataSource<Video>;
   dataSourceUser: MatTableDataSource<User>;
+  dataSourceCat: MatTableDataSource<Category>;
   loading: boolean = false;
   error: string;
   success: string;
@@ -41,6 +43,7 @@ export class AdminComponent implements OnInit {
   @ViewChild('paginator1', { static: true }) paginator1: MatPaginator;
   @ViewChild('paginator2', { static: true }) paginator2: MatPaginator;
   @ViewChild('paginator3', { static: true }) paginator3: MatPaginator;
+  @ViewChild('paginator4', { static: true }) paginator4: MatPaginator;
 
   constructor(public http: HttpClient, public dialog: MatDialog) {
     this.iden = localStorage.getItem("iden");
@@ -72,6 +75,11 @@ export class AdminComponent implements OnInit {
     this.dataSourceUser.paginator = this.paginator3;
   }
 
+  reloadDataSourceCategory(categories: Category[]): void {
+    this.dataSourceCat = new MatTableDataSource<Category>(categories);
+    this.dataSourceCat.paginator = this.paginator4;
+  }
+
   loadCategory(): void {
     this.loading = true;
     this.http.post<Category[]>(SERVER_API_URL, {
@@ -79,6 +87,7 @@ export class AdminComponent implements OnInit {
       session: true
     }).subscribe(res => {
       this.categories = res;
+      this.reloadDataSourceCategory(this.categories);
       this.loading = false;
       this.loadChannels();
     });
@@ -291,6 +300,98 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  sendEditCat(cat: Category) {
+    this.loading = true;
+    this.http.post(SERVER_API_URL, {
+      request: "EDITCATEGORY",
+      session: true,
+      id: cat.id,
+      name: cat.name,
+      color: cat.color,
+      imgUrl: cat.imgUrl
+    }).subscribe(res => {
+      if (res[0] == "KO") {
+        this.error = res[1];
+      }
+      this.loading = false;
+    });
+  }
+
+  createCategory(cat: Category) {
+    this.loading = true;
+    this.http.post(SERVER_API_URL, {
+      request: "ADDCATEGORY",
+      session: true,
+      name: cat.name,
+      color: cat.color,
+      imgUrl: cat.imgUrl
+    }).subscribe(res => {
+      if (res[0] == "KO") {
+        this.error = res[1];
+        this.loading = false;
+      } else {
+        this.loadCategory();
+      }
+    });
+  }
+
+  editCategory(cat: Category, edit: boolean): void {
+    if (cat == null) {
+      cat = new Category();
+    }
+    const dialogRef = this.dialog.open(EditCategory, {
+      width: '300px',
+      data: { cat: cat }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == true) {
+        if (edit) {
+          this.sendEditCat(cat);
+        } else {
+          this.createCategory(cat);
+        }
+      }
+    });
+  }
+
+}
+@Component({
+  selector: 'edit-category',
+  templateUrl: 'edit-category.html',
+  animations: fadeOut
+})
+export class EditCategory {
+
+  form: FormGroup;
+  error: string;
+
+  constructor(
+    public dialogRef: MatDialogRef<EditCategory>,
+    @Inject(MAT_DIALOG_DATA) public data: Object, fb: FormBuilder, public http: HttpClient) {
+    this.form = fb.group({
+      name: ['', Validators.required],
+      color: ['', Validators.required],
+      url: ['', Validators.required]
+    })
+  }
+
+  checkName() {
+    let name = this.form.controls['name'].value;
+    this.http.get(SERVER_API_URL + "?request=CATEGORY_EXISTS&name=" + name).subscribe(res => {
+      if (res["result"] == true) {
+        this.error = "Questa categoria è già registrata!";
+        this.form.controls['name'].setErrors({ incorrect: true });
+      } else {
+        this.error = null;
+        this.form.controls['name'].setErrors(null);
+      }
+    });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
 @Component({
   selector: 'guest-dialog',
