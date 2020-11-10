@@ -1,0 +1,17 @@
+.card{
+  display: inline-block;
+  width: 200px;
+  margin: 10px;
+  background-color: white;
+  text-decoration: none;
+  padding: 0;
+}
+.img{
+  width: 100%;
+  height: 110px;
+  background-size: 100%;
+  background-position: center;
+}
+.card h4{
+  padding: 15px;
+}

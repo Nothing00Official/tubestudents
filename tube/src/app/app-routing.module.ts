@@ -6,6 +6,8 @@ import { StudentComponent } from './student/student.component';
 import { SupportComponent } from './support/support.component';
 import { LoginComponent } from './login/login.component';
 import { PortalComponent } from './portal/portal.component';
+import { CategoryComponent } from './category/category.component';
+import { VideoComponent } from './video/video.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -28,6 +30,14 @@ const routes: Routes = [
   {
     path: 'portale',
     component: PortalComponent
+  },
+  {
+    path: 'portale/c/:id',
+    component: CategoryComponent
+  },
+  {
+    path: 'portale/v/:id',
+    component: VideoComponent
   }
 ];
 
@@ -42,5 +52,7 @@ export const routingComponents = [
   StudentComponent,
   SupportComponent,
   LoginComponent,
-  PortalComponent
+  PortalComponent,
+  CategoryComponent,
+  VideoComponent
 ]

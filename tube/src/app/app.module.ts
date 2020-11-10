@@ -21,6 +21,8 @@ import { LoginComponent } from './login/login.component';
 import { LoggedcontainerComponent } from './loggedcontainer/loggedcontainer.component';
 import { PortalComponent } from './portal/portal.component';
 import { AdminComponent, videoDialog, videoApproved, GuestUser, EditCategory } from './admin/admin.component';
+import { CategoryComponent } from './category/category.component';
+import { VideoComponent } from './video/video.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -39,7 +41,9 @@ registerLocaleData(localeIt, 'it');
     videoDialog,
     videoApproved,
     GuestUser,
-    EditCategory
+    EditCategory,
+    CategoryComponent,
+    VideoComponent
   ],
   imports: [
     MaterialModule,

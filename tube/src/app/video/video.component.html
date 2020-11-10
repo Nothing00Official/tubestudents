@@ -1,0 +1,11 @@
+<div *ngIf="iden!=null" [@slideInOut]>
+	<mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+	<div class="container text-left" *ngIf="video!=null">
+		<h1>{{video.title}} di <a target="_blank" href="https://www.youtube.com/channel/{{video.iden}}/playlists">{{video.name}}</a></h1>
+		<div class="text-center">
+			<iframe width="760" height="515" [src]="transform(url)" frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen></iframe>
+		</div>
+	</div>
+</div>

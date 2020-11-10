@@ -1,0 +1,10 @@
+<div *ngIf="iden!=null" [@slideInOut]>
+	<mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+	<div class="container text-center">
+		<a href="javascript:void(0)" [routerLink]="['/portale/v', v.id]" class="card" *ngFor="let v of videos">
+			<div class="img" [style.backgroundImage]="getBackgroundUrl(v.imgUrl)"></div>
+			<h4>{{v.title}}</h4>
+      <p>{{v.name}}</p>
+		</a>
+	</div>
+</div>
