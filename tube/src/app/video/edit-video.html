@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Modifica Video</h1>
+<div mat-dialog-content style="width: 100%" *ngIf="data['delete']!=true">
+
+	<mat-form-field appearance="fill" style="width: 100%">
+		<mat-label>Titolo</mat-label>
+		<input matInput type="text"  [(ngModel)]="data['video']['title']" #title>
+	</mat-form-field>
+
+		<mat-form-field appearance="fill" style="width:100%">
+			<mat-label>Categoria</mat-label>
+			<mat-select [(ngModel)]="data['video']['categoryID']">
+				<mat-option *ngFor="let c of cats" [value]="c.id">{{c.name}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+</div>
+<div mat-dialog-content style="width: 100%" *ngIf="data['delete']==true">
+	Sei sicuro di voler rimuovere questo video? Il video non sarà più disponibile sulla piattaforma!
+</div>
+<div mat-dialog-actions>
+	<button mat-button color="secondary" (click)="onNoClick()">Annulla</button>
+	<button mat-button *ngIf="data['delete']!=true" [mat-dialog-close]="true" color="primary" cdkFocusInitial [disabled]="data['video']['categoryID']==null || data['video']['title']==null || data['video']['categoryID']=='' || data['video']['title']==''">Salva</button>
+	<button mat-button *ngIf="data['delete']==true" [mat-dialog-close]="true" color="primary" cdkFocusInitial>Conferma</button>
+</div>

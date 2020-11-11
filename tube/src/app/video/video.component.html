@@ -1,9 +1,16 @@
 <div *ngIf="iden!=null" [@slideInOut]>
 	<mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-	<div class="container text-left" *ngIf="video!=null">
-		<h1>{{video.title}} di <a target="_blank" href="https://www.youtube.com/channel/{{video.iden}}/playlists">{{video.name}}</a></h1>
+	<div class="container text-left" *ngIf="video!=null && user!=null && video.approved==true">
+		<div class="alert alert-danger" [@slideInOut] *ngIf="error" [innerHTML]="error"></div>
+		<h1>{{video.title}} di <a target="_blank"
+				href="https://www.youtube.com/channel/{{video.iden}}/playlists">{{video.name}}</a></h1>
+		<button type="button" mat-button color="primary" *ngIf="user.type=='A'" (click)="editVideo()">Modifica</button>
+    <button type="button" mat-button color="warn" *ngIf="user.type=='A'" (click)="delVideo()">Elimina Video</button>
 		<div class="text-center">
-			<iframe width="760" height="515" [src]="transform(url)" frameborder="0"
+			<iframe width="760" height="515" [src]="transform(url)" frameborder="0" id="videoDesktop"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen></iframe>
+			<iframe width="330" height="185" [src]="transform(url)" frameborder="0" id="videoMobile"
 				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowfullscreen></iframe>
 		</div>
