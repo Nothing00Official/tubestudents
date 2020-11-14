@@ -25,6 +25,7 @@ export class PortalComponent implements OnInit {
   results: Object[] = new Array();
 
   admin: boolean = true;
+  cpanel: boolean = false;
 
   constructor(public session: SessionManager, public router: Router, public http: HttpClient, fb: FormBuilder) {
     this.iden = localStorage.getItem("iden");

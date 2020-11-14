@@ -1,0 +1,39 @@
+<div class="error" [innerHTML]="error" *ngIf="error"></div>
+<h2>Video in attesa di approvazione</h2>
+<mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div class="row" *ngIf="!loading">
+	<div class="col-md-10 col-12" [@slideInOut]>
+		<input [formControl]="videoControl" class="tube-control" type="text" placeholder="Inserire URL video/playlist" />
+		<label>Puoi inserire fino a 10 link per volta da sottoporre alla validazione.</label>
+	</div>
+	<div class="col-md-2 col-12" [@slideInOut]>
+		<button class="tube-button" [disabled]="videoControl.value==null || videoControl.value==''" (click)="loadVideo()">Aggiungi</button>
+	</div>
+	<div class="col-12" *ngIf="scanning">
+		<mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
+	</div>
+	<div class="col-12 videoContainer">
+		<div *ngFor="let v of pendingvideos" class="videoprev" [style.backgroundImage]="getbackgroundUrl(v.imgUrl)">
+			<div class="cover">
+				<button (click)="delVideo(v)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+			</div>
+		</div>
+	</div>
+	<div class="col-12" [@slideInOut] *ngIf="pendingvideos.length>0">
+		<button type="button" class="tube-button btn-send" (click)="send()">Invia contenuti</button>
+	</div>
+</div>
+<table class="table table-hover text-left">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">YouTube ID</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let v of videos">
+			<th scope="row">{{v.id}}</th>
+			<td><a target="_blank" href="https://www.youtube.com/embed/{{v.url}}">{{v.url}}</a></td>
+		</tr>
+	</tbody>
+</table>

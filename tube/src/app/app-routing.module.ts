@@ -8,9 +8,13 @@ import { LoginComponent } from './login/login.component';
 import { PortalComponent } from './portal/portal.component';
 import { CategoryComponent } from './category/category.component';
 import { VideoComponent } from './video/video.component';
+import { IndexComponent } from './index/index.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: '',
+    component: IndexComponent
+  },
   {
     path: 'invia-video',
     component: CreatorComponent

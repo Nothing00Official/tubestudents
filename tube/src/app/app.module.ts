@@ -23,6 +23,8 @@ import { PortalComponent } from './portal/portal.component';
 import { AdminComponent, videoDialog, videoApproved, GuestUser, EditCategory } from './admin/admin.component';
 import { CategoryComponent } from './category/category.component';
 import { VideoComponent, VideoEdit } from './video/video.component';
+import { CreatorpanelComponent } from './creatorpanel/creatorpanel.component';
+import { IndexComponent } from './index/index.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -44,7 +46,9 @@ registerLocaleData(localeIt, 'it');
     EditCategory,
     CategoryComponent,
     VideoComponent,
-    VideoEdit
+    VideoEdit,
+    CreatorpanelComponent,
+    IndexComponent
   ],
   imports: [
     MaterialModule,

@@ -23,11 +23,15 @@
 		<button (click)="admin=false" mat-raised-button color="primary"  *ngIf="admin && user.type=='A' && user.active==1">Attiva Modalità Utente</button>
 		<button (click)="admin=true" mat-raised-button color="warn"  *ngIf="!admin && user.type=='A' && user.active==1">Apri Pannello Admin</button>
 		<app-admin *ngIf="user.type=='A' && user.active==1 && admin" [@slideInOut]></app-admin>
-		<div class="main" *ngIf="user.active==1 && ((!admin && user.type=='A') || user.type!='A')" [@slideInOut]>
+		<button (click)="cpanel=false" mat-raised-button color="primary"  *ngIf="cpanel && user.type=='C' && user.active==1">Chiudi Gestionale</button>
+		<button (click)="cpanel=true" mat-raised-button color="warn"  *ngIf="!cpanel && user.type=='C' && user.active==1">Apri Gestionale</button>
+		<app-creatorpanel *ngIf="user.type=='C' && cpanel" [@slideInOut]></app-creatorpanel>
+		<div class="main" *ngIf="user.active==1 && ((!admin && user.type=='A') || user.type!='A') && (!cpanel && user.type=='C')" [@slideInOut]>
 			<div class="navbar">
 				<input type="text" (keyup)="onSearch($event)" class="searchbar" placeholder="Cerca il titolo di un video o un corso">
 				<ul class="results" [@slideInOut]>
-					<li *ngFor="let res of results"><a [routerLink]="['/portale/v', res['id']]" href="javascript:void(0)">{{res['title']}}</a></li>
+					<li *ngFor="let res of results"><a [routerLink]="['/portale/v', res['id']]"
+							href="javascript:void(0)">{{res['title']}}</a></li>
 				</ul>
 			</div>
 			<div class="content">
