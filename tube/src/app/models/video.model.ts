@@ -7,4 +7,5 @@ export class Video{
   name: string;
   iden: string;
   categoryID: number;
+  approved: boolean;
 }

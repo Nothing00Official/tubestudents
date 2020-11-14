@@ -17,7 +17,7 @@
 			</div>
       <mat-progress-bar color="warn" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 			<div class="success" id="success" *ngIf="done" [@slideInOut]>
-				<h2>Step 3: Attendi le credenziali di accesso inviate a {{mail.value}} e accedi alla piattaforma!</h2>
+				<h2>Step 3: Attendi le credenziali di accesso inviate a {{savedMail}} e accedi alla piattaforma!</h2>
 				<p>Ricorda di controllare se la mail si trova nello spam. Le credenziali possono impiegare fino a 20
 					minuti prima di essere ricevute!</p>
 			</div>

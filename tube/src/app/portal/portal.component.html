@@ -20,13 +20,13 @@
 						</div>
 			</form>
 		</div>
-		<button (click)="admin=false" mat-raised-button color="primary"  *ngIf="admin && user.type=='A' && user.active==1">Attiva Modalità Utente</button>
-		<button (click)="admin=true" mat-raised-button color="warn"  *ngIf="!admin && user.type=='A' && user.active==1">Apri Pannello Admin</button>
-		<app-admin *ngIf="user.type=='A' && user.active==1 && admin" [@slideInOut]></app-admin>
-		<button (click)="cpanel=false" mat-raised-button color="primary"  *ngIf="cpanel && user.type=='C' && user.active==1">Chiudi Gestionale</button>
-		<button (click)="cpanel=true" mat-raised-button color="warn"  *ngIf="!cpanel && user.type=='C' && user.active==1">Apri Gestionale</button>
+		<button (click)="admin=false" mat-raised-button color="primary"  *ngIf="admin && user.type=='A' && user.active==true">Attiva Modalità Utente</button>
+		<button (click)="admin=true" mat-raised-button color="warn"  *ngIf="!admin && user.type=='A' && user.active==true">Apri Pannello Admin</button>
+		<app-admin *ngIf="user.type=='A' && user.active==true && admin" [@slideInOut]></app-admin>
+		<button (click)="cpanel=false" mat-raised-button color="primary"  *ngIf="cpanel && user.type=='C' && user.active==true">Chiudi Gestionale</button>
+		<button (click)="cpanel=true" mat-raised-button color="warn"  *ngIf="!cpanel && user.type=='C' && user.active==true">Apri Gestionale</button>
 		<app-creatorpanel *ngIf="user.type=='C' && cpanel" [@slideInOut]></app-creatorpanel>
-		<div class="main" *ngIf="user.active==1 && ((!admin && user.type=='A') || user.type!='A') && (!cpanel && user.type=='C')" [@slideInOut]>
+		<div class="main" *ngIf="user.active==true && ((!admin && user.type=='A') || (!cpanel && user.type=='C') || (user.type!='A' && user.type!='C'))" [@slideInOut]>
 			<div class="navbar">
 				<input type="text" (keyup)="onSearch($event)" class="searchbar" placeholder="Cerca il titolo di un video o un corso">
 				<ul class="results" [@slideInOut]>

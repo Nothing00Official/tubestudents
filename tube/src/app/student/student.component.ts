@@ -21,6 +21,8 @@ export class StudentComponent implements OnInit {
 
   mail = new FormControl("");
 
+  savedMail: string;
+
   constructor(public session: SessionManager, public router: Router, public http: HttpClient) {
     this.iden = localStorage.getItem("iden");
     this.session.check().subscribe(res => {
@@ -74,6 +76,7 @@ export class StudentComponent implements OnInit {
       } else {
         this.error = null;
         this.done = true;
+        this.savedMail = this.mail.value
         this.mail.setValue("");
         setTimeout(() => {
           document.getElementById("success").scrollIntoView();
