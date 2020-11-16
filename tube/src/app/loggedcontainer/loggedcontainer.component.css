@@ -21,12 +21,40 @@ a.logo:hover img{
   padding: 10px;
   float: right;
 }
-
+.row{
+  margin-top: 5%;
+}
+.donation-control{
+  outline: none;
+  width: 200px;
+  padding: 15px;
+  border-top-left-radius: 200px;
+  border-bottom-left-radius: 200px;
+  border: 1px solid gainsboro;
+}
+.donation-button{
+  border-top-right-radius: 200px;
+  border-bottom-right-radius: 200px;
+  padding: 15px;
+  outline: none;
+  border: none;
+  background-color: rgb(240, 89, 89);
+  text-transform: uppercase;
+  color: white;
+  width: 150px;
+  transition: 0.5s;
+}
+.donation-button:hover{
+  background-color: rgb(199, 60, 60);
+}
 @media screen and (max-width: 600px) {
   header{
     text-align: center;
   }
   .tube-button{
    float: none;
+  }
+  .row{
+    margin-top: 150px;
   }
 }

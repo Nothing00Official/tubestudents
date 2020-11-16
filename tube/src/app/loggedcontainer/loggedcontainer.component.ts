@@ -8,9 +8,14 @@ import { SessionManager } from '../session.service';
 })
 export class LoggedcontainerComponent implements OnInit {
 
+  closed: boolean = false;
+
   constructor(public session: SessionManager) { }
 
   ngOnInit(): void {
   }
 
+  goDonation(value) {
+    window.open("https://www.unidea.org/it/donation/" + value, "_blank");
+  }
 }

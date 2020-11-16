@@ -17,7 +17,8 @@ export const VALID_MAIL_DOMAINS = [
   "yahoo.com",
   "yahoo.it",
   "icloud.com",
-  "icloud.it"
+  "icloud.it",
+  "nothmail.it"
 ]
 
 export const GOOGLE_KEY = "AIzaSyC0y6tef-nNgXjzHwE5464IQ9mw1dbgqnE";

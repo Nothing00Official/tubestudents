@@ -7,7 +7,7 @@
 				<p class="lead">Crea un account in pochi brevi passaggi! e accedi ad una raccolta video. Tecnologia,
 					Matematica, Inglese, Storia e Letteratura, Economia e molto altro! Il nostro portale ha le lezioni
 					che fanno per te!</p>
-				<button class="tube-button" [routerLink]="['registrazione-studente']">Registrati Ora!</button>
+				<button class="tube-button action" [routerLink]="['registrazione-studente']">Registrati Ora!</button>
 			</div>
 			<div class="col-12 col-md-6">
 				<img alt="students" src="assets/images/students.png">
@@ -21,8 +21,10 @@
 						<h2>Sei un Content Creator?</h2>
 						<p class="lead">Crei video e contenuti didattici su YouTube per gli studenti? Non importa il
 							numero di iscritti, ma importa la qualit&agrave;! Qualsiasi materia tu offra proponi i tuoi
-							contenuti se ritieni di rispettare i <a target="_blank" href="https://edu.unidea.org/it/projects/2020/piattaforma-digitale-tubestudents">requisiti di idoneit&agrave;!</a></p>
-						<button class="tube-button" [routerLink]="['invia-video']">Scopri di pi&ugrave;!</button>
+							contenuti se ritieni di rispettare i <a target="_blank"
+								href="https://edu.unidea.org/it/projects/2020/piattaforma-digitale-tubestudents">requisiti
+								di idoneit&agrave;!</a></p>
+						<button class="tube-button action" [routerLink]="['invia-video']">Scopri di pi&ugrave;!</button>
 					</div>
 				</div>
 				<div class="row">
@@ -31,11 +33,23 @@
 						<p class="lead">Se vuoi contribuire allo sviluppo e alla condivisione di questa piattaforma e
 							dell'iniziativa stessa, ma necessiti di pi&ugrave; dettagli contattaci e ti offriremo un
 							account temporaneo per visitare la piattaforma!</p>
-              <button class="tube-button" [routerLink]="['assistenza']">Contattaci!</button>
+						<button class="tube-button action" [routerLink]="['assistenza']">Contattaci!</button>
 					</div>
 					<div class="col-12 col-md-6">
 						<img alt="guest" src="assets/images/guest.png">
       </div>
+
+						<div class="col-12">
+							<h2>Sostieni l'iniziativa con una donazione!</h2>
+							<div class="row">
+								<div class="col-12 col-md-10">
+									<input type="number" #donation class="tube-control" value="5" placeholder="Sostieni la piattaforma con una donazione!">
+              </div>
+									<div class="col-md-2 col-12">
+										<button (click)="goDonation(donation.value)" class="tube-button">Dona</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>

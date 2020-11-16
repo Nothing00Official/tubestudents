@@ -2,4 +2,17 @@
 	<a href="javascript:void(0)" [routerLink]="['/portale']" class="logo"><img src="assets/images/tubelogo.png"></a>
 		<button (click)="session.destroySession()" class="tube-button">Logout</button>
 </header>
-
+<div *ngIf="!closed">
+	<div class="row text-center">
+  	<h2 class="col-12">Sostieni l'iniziativa con una donazione!</h2>
+		<div class="col-6 text-right">
+			<input type="number" #donation class="donation-control" value="5" placeholder="Sostieni la piattaforma con una donazione!">
+              </div>
+			<div class="col-6 text-left">
+				<button (click)="goDonation(donation.value)" class="donation-button">Dona</button>
+			</div>
+      <div class="col-12">
+        <button mat-button (click)="closed=true">Chiudi</button>
+      </div>
+		</div>
+	</div>

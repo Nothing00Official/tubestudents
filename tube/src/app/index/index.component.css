@@ -16,12 +16,12 @@ h1, h2, h3{
 .row{
   margin-bottom: 10%;
 }
-.tube-button{
+.tube-button.action{
   width: 200px;
   margin: auto;
   margin-top: 30px;
 }
-.tube-button:hover{
+.tube-button.action:hover{
   width: 220px;
   margin: 30px 5px;
 }

@@ -30,4 +30,8 @@ export class IndexComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goDonation(value) {
+    window.open("https://www.unidea.org/it/donation/" + value, "_blank");
+  }
+
 }
