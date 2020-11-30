@@ -25,6 +25,12 @@ h1, h2, h3{
   width: 220px;
   margin: 30px 5px;
 }
+.counter h1{
+  font-size: 500%;
+}
+.counter h2{
+  color: rgb(224, 70, 70);
+}
 @media screen and (max-width: 600px) {
   img{
     width: 300px;

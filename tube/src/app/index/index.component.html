@@ -11,45 +11,59 @@
 			</div>
 			<div class="col-12 col-md-6">
 				<img alt="students" src="assets/images/students.png">
-      </div>
 			</div>
-			<div class="row">
-				<div class="col-12 col-md-6">
-					<img alt="creators" src="assets/images/creators.png">
-      </div>
-					<div class="col-12 col-md-6 text">
-						<h2>Sei un Content Creator?</h2>
-						<p class="lead">Crei video e contenuti didattici su YouTube per gli studenti? Non importa il
-							numero di iscritti, ma importa la qualit&agrave;! Qualsiasi materia tu offra proponi i tuoi
-							contenuti se ritieni di rispettare i <a target="_blank"
-								href="https://edu.unidea.org/it/projects/2020/piattaforma-digitale-tubestudents">requisiti
-								di idoneit&agrave;!</a></p>
-						<button class="tube-button action" [routerLink]="['invia-video']">Scopri di pi&ugrave;!</button>
-					</div>
-				</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<img alt="creators" src="assets/images/creators.png">
+			</div>
+			<div class="col-12 col-md-6 text">
+				<h2>Sei un Content Creator?</h2>
+				<p class="lead">Crei video e contenuti didattici su YouTube per gli studenti? Non importa il
+					numero di iscritti, ma importa la qualit&agrave;! Qualsiasi materia tu offra proponi i tuoi
+					contenuti se ritieni di rispettare i <a target="_blank"
+						href="https://edu.unidea.org/it/projects/2020/piattaforma-digitale-tubestudents">requisiti
+						di idoneit&agrave;!</a></p>
+				<button class="tube-button action" [routerLink]="['invia-video']">Scopri di pi&ugrave;!</button>
+			</div>
+		</div>
+		<div class="row" id="counters" *ngIf="stats!=null">
+			<div class="col-md-4 col-12 counter">
+				<h1 class="cont">{{stats['videos']}}</h1>
+				<h2>Video Disposinibili</h2>
+			</div>
+			<div class="col-md-4 col-12 counter">
+				<h1 class="cont">{{stats['categories']}}</h1>
+				<h2>Materie Online</h2>
+			</div>
+			<div class="col-md-4 col-12 counter">
+				<h1 class="cont">{{stats['creators']}}</h1>
+				<h2>Creator Aderenti</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<img alt="guest" src="assets/images/guest.png">
+			</div>
+			<div class="col-12 col-md-6 text">
+				<h2>Non sei studente o creator e vuoi aiutarci?</h2>
+				<p class="lead">Se vuoi contribuire allo sviluppo e alla condivisione di questa piattaforma e
+					dell'iniziativa stessa, ma necessiti di pi&ugrave; dettagli contattaci e ti offriremo un
+					account temporaneo per visitare la piattaforma!</p>
+				<button class="tube-button action" [routerLink]="['assistenza']">Contattaci!</button>
+			</div>
+			<div class="col-12">
+				<h2>Sostieni l'iniziativa con una donazione!</h2>
 				<div class="row">
-					<div class="col-12 col-md-6 text">
-						<h2>Non sei studente o creator e vuoi aiutarci?</h2>
-						<p class="lead">Se vuoi contribuire allo sviluppo e alla condivisione di questa piattaforma e
-							dell'iniziativa stessa, ma necessiti di pi&ugrave; dettagli contattaci e ti offriremo un
-							account temporaneo per visitare la piattaforma!</p>
-						<button class="tube-button action" [routerLink]="['assistenza']">Contattaci!</button>
+					<div class="col-12 col-md-10">
+						<input type="number" #donation class="tube-control" value="5"
+							placeholder="Sostieni la piattaforma con una donazione!">
 					</div>
-					<div class="col-12 col-md-6">
-						<img alt="guest" src="assets/images/guest.png">
-      </div>
-
-						<div class="col-12">
-							<h2>Sostieni l'iniziativa con una donazione!</h2>
-							<div class="row">
-								<div class="col-12 col-md-10">
-									<input type="number" #donation class="tube-control" value="5" placeholder="Sostieni la piattaforma con una donazione!">
-              </div>
-									<div class="col-md-2 col-12">
-										<button (click)="goDonation(donation.value)" class="tube-button">Dona</button>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="col-md-2 col-12">
+						<button (click)="goDonation(donation.value)" class="tube-button">Dona</button>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>

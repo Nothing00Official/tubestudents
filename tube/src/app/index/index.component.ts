@@ -3,6 +3,7 @@ import { fadeOut } from '../animations';
 import { SessionManager } from '../session.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { SERVER_API_URL } from '../urls';
 
 @Component({
   selector: 'app-index',
@@ -14,8 +15,11 @@ export class IndexComponent implements OnInit {
 
   iden: string;
 
+  stats: Object;
+
   constructor(public session: SessionManager, public router: Router, public http: HttpClient) {
     this.iden = localStorage.getItem("iden");
+    this.loadCounters();
     this.session.check().subscribe(res => {
       if (res[0] == "OK") {
         if (this.iden == null) {
@@ -24,6 +28,12 @@ export class IndexComponent implements OnInit {
           this.router.navigate(['/portale']);
         }
       }
+    });
+  }
+
+  loadCounters() {
+    this.http.get(SERVER_API_URL + "?request=STATS").subscribe(res => { 
+      this.stats = res;
     });
   }
 

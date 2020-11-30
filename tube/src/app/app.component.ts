@@ -21,7 +21,6 @@ export class AppComponent {
 
   constructor(public router: Router, public loc: Location, public http: HttpClient) {
     this.iden = localStorage.getItem('iden');
-    this.onLoad();
     this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
         if (loc.path().startsWith("/portale")) {
