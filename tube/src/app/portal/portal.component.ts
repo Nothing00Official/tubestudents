@@ -95,14 +95,12 @@ export class PortalComponent implements OnInit {
     var $this = this;
     this.timeout = setTimeout(() => {
       this.loading = true;
-      if (event.keyCode != 13) {
-        $this.searchVideo(event.target.value);
-      }
+      $this.searchVideo(event.target.value);
     }, 500);
   }
 
   searchVideo(value) {
-    if(value=="" || value==null){
+    if (value == "" || value == null) {
       this.results = [];
       this.loading = false;
       return;

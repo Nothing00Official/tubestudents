@@ -152,9 +152,7 @@ export class CreatorComponent implements OnInit {
     var $this = this;
     this.timeout = setTimeout(() => {
       this.spinning = true;
-      if (event.keyCode != 13) {
-        $this.loadChannel(event.target.value);
-      }
+      $this.loadChannel(event.target.value);
     }, 500);
   }
 
@@ -162,24 +160,22 @@ export class CreatorComponent implements OnInit {
     clearTimeout(this.timeout);
     var $this = this;
     this.timeout = setTimeout(() => {
-      if (event.keyCode != 13) {
-        let mail = event.target.value;
-        let correct = false;
-        if (mail.search(MAIL_PATTERN) != -1) {
-          let domain = mail.split("@")[1];
-          if (VALID_MAIL_DOMAINS.includes(domain.toLowerCase())) {
-            correct = true;
-          } else {
-            this.error = "La casella mail inserita non è valida! Caselle consentite: GMail, Virgilio Mail, Yahoo, Alice.it, Microsoft Mail, Libero Mail";
-          }
+      let mail = event.target.value;
+      let correct = false;
+      if (mail.search(MAIL_PATTERN) != -1) {
+        let domain = mail.split("@")[1];
+        if (VALID_MAIL_DOMAINS.includes(domain.toLowerCase())) {
+          correct = true;
         } else {
-          this.error = "Inserire una mail valida!";
+          this.error = "La casella mail inserita non è valida! Caselle consentite: GMail, Virgilio Mail, Yahoo, Alice.it, Microsoft Mail, Libero Mail";
         }
-        if (!correct) {
-          this.form.controls['mail'].setErrors({ 'incorrect': true });
-        } else {
-          this.checkExistsMail(mail, 'mail');
-        }
+      } else {
+        this.error = "Inserire una mail valida!";
+      }
+      if (!correct) {
+        this.form.controls['mail'].setErrors({ 'incorrect': true });
+      } else {
+        this.checkExistsMail(mail, 'mail');
       }
     }, 500);
   }

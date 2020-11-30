@@ -2,7 +2,7 @@
 	<div class="container">
 		<h1>Accedi al tuo account</h1>
     <mat-spinner mode="indeterminate" color="warn" *ngIf="loading" style="margin: auto"></mat-spinner>
-		<form class="row" [formGroup]="form" [@slideInOut] *ngIf="!loading">
+		<form class="row" [formGroup]="form" [@slideInOut] *ngIf="!loading"  (ngSubmit)="login()">
 			<div class="col-12" *ngIf="error" [@slideInOut]>
 				<div class="error" [innerHTML]="error"></div>
 			</div>
@@ -13,7 +13,7 @@
 					<input #loginPSW type="password" formControlName="psw" placeholder="password" class="tube-control" />
      </div>
 					<div class="col-12" [@slideInOut] *ngIf="form.valid">
-						<button (click)="login()" type="button" class="tube-button">Accedi</button>
+						<button type="submit" class="tube-button">Accedi</button>
 					</div>
 					<div class="col-12">Se non ricordi le tue credenziali di accesso contatta l'assistenza tramite
 						l'apposito contatto!</div>

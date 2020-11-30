@@ -47,9 +47,7 @@ export class LoginComponent implements OnInit {
     var $this = this;
     this.timeout = setTimeout(() => {
       this.spinning = true;
-      if (event.keyCode != 13) {
-        $this.checkUser(event.target.value);
-      }
+      $this.checkUser(event.target.value);
     }, 500);
   }
 
