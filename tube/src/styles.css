@@ -42,3 +42,7 @@ input.tube-control{
   padding: 20px 23px;
   margin: 15px 12px;
 }
+.tube-button.video{
+  border-radius: 200px;
+  margin-bottom: 50px;
+}
